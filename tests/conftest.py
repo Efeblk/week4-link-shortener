@@ -1,15 +1,12 @@
-from contextlib import closing
-
 import pytest
 
-from main import get_db
+import main
 
 
 @pytest.fixture(autouse=True)
-def reset_link_state():
-    """Keep HTTP tests independent by clearing the local service state."""
-    with closing(get_db()) as conn:
-        conn.execute("DELETE FROM links")
-        conn.execute("DELETE FROM sqlite_sequence WHERE name = 'links'")
-        conn.commit()
+def fresh_db(tmp_path, monkeypatch):
+    """Give every test its own empty database, so tests are independent and never
+    touch the real links.db used by the running app."""
+    monkeypatch.setattr(main, "DB_PATH", tmp_path / "links.db")
+    main.init_db()
     yield

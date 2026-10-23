@@ -9,7 +9,7 @@ URL and returns a code; `GET /{code}` redirects to the stored URL.
 
 - `main.py`: the complete application and local SQLite access.
 - `tests/test_main.py`: HTTP-level behavioral tests.
-- `tests/conftest.py`: resets local link state between tests.
+- `tests/conftest.py`: gives each test its own temporary database (never the real `links.db`).
 - `docs/TASKS.md`: the available homework features.
 - `.agents/skills/implement-task/SKILL.md`: feature implementation workflow.
 

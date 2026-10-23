@@ -21,3 +21,10 @@ Verification during review: `python -m pytest -q` completed with
 `TestClient` deprecation warning and is outside this feature's scope.
 
 No follow-up implementation or second review round is required.
+
+## Follow-up after review
+
+A later manual check found that the shared fixture cleared the same `links.db`
+the running app uses, so running `pytest` deleted real local links. The fixture
+now points `main.DB_PATH` at a per-test temporary file and calls `init_db()`.
+Tests still pass (`7 passed`).
