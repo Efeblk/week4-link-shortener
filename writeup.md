@@ -57,4 +57,11 @@ accepted it after confirming all requested counter behaviors had HTTP-level,
 order-independent coverage. The final test run was `7 passed, 1 warning`; the
 warning is the installed framework's `TestClient` deprecation notice.
 
+After the review, a manual check found one thing the agent's review missed: the
+test fixture cleared the same `links.db` the running app uses, so running
+`pytest` deleted real local links. I changed the fixture to give each test its
+own temporary database.
+
+## 6. What I learned
+
 <!-- TODO (you): write this yourself. Course policy (Week 1 slides, p.16): no AI for reflections. -->
